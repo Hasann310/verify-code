@@ -24,22 +24,30 @@
     </div>
 
     <script>
-        // URL থেকে কোড বের করার ম্যাজিক!
+        // URL থেকে এনকোড করা key বের করে ডিকোড (Decrypt) করার ম্যাজিক!
         const urlParams = new URLSearchParams(window.location.search);
-        const code = urlParams.get('code');
+        const encodedKey = urlParams.get('key');
         const codeBox = document.getElementById('displayCode');
+        let finalCode = "";
 
-        if(code) {
-            codeBox.innerText = code;
+        if(encodedKey) {
+            try {
+                finalCode = atob(encodedKey); // এনক্রিপ্ট করা কোডটিকে ডিক্রিপ্ট করে আসল কোড বের করা হচ্ছে
+                codeBox.innerText = finalCode;
+            } catch(e) {
+                codeBox.innerText = "INVALID KEY FORMAT";
+                codeBox.style.color = "#ff5f56";
+                document.getElementById('copyBtn').style.display = "none";
+            }
         } else {
-            codeBox.innerText = "INVALID LINK";
+            codeBox.innerText = "INVALID SECURE LINK";
             codeBox.style.color = "#ff5f56";
             document.getElementById('copyBtn').style.display = "none";
         }
 
         function copyCode() {
-            if(code) {
-                navigator.clipboard.writeText(code);
+            if(finalCode) {
+                navigator.clipboard.writeText(finalCode);
                 const btn = document.getElementById('copyBtn');
                 btn.innerText = "✅ COPIED SUCCESSFULLY!";
                 btn.style.background = "linear-gradient(180deg, #0a84ff 0%, #007aff 100%)";
