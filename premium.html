@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Plans - Icon Sheet Builder Pro</title>
+    <style>
+        :root {
+            --bg-main: #141414;
+            --bg-card: #222222;
+            --bg-input: #111111;
+            --text-primary: #ffffff;
+            --text-secondary: #aaaaaa;
+            --accent-blue: #0a84ff;
+            --accent-orange: #ff9f0a;
+            --accent-green: #27c93f;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        * { box-sizing: border-box; font-family: var(--font-main); }
+        body { background: var(--bg-main); color: var(--text-primary); margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        
+        /* HEADER & TOGGLES */
+        .header { width: 100%; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); background: #1a1a1a; position: sticky; top: 0; z-index: 50; }
+        .logo-area { text-align: left; }
+        .logo-text { font-size: 22px; font-weight: 800; margin: 0; }
+        .pro-badge { background: linear-gradient(135deg, var(--accent-blue), #005bb5); color: #fff; padding: 2px 6px; border-radius: 4px; font-size: 12px; vertical-align: middle; }
+        
+        .controls { display: flex; gap: 15px; }
+        .toggle-btn { background: var(--bg-card); color: var(--text-primary); border: 1px solid var(--border-color); padding: 8px 16px; border-radius: 20px; cursor: pointer; font-weight: bold; transition: 0.3s; font-size: 13px; }
+        .toggle-btn:hover { border-color: var(--accent-orange); color: var(--accent-orange); }
+
+        /* PRICING SECTION */
+        .pricing-container { padding: 50px 20px; text-align: center; max-width: 1200px; width: 100%; }
+        .section-title { font-size: 32px; font-weight: 800; margin-bottom: 10px; }
+        .section-sub { color: var(--text-secondary); margin-bottom: 40px; font-size: 16px; }
+
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .price-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 30px 20px; text-align: left; transition: transform 0.3s, box-shadow 0.3s; display: flex; flex-direction: column; }
+        .price-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); border-color: var(--text-secondary); }
+        .price-card.featured { border-color: var(--accent-orange); box-shadow: 0 0 20px rgba(255, 159, 10, 0.15); position: relative; }
+        .featured-tag { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--accent-orange); color: #fff; padding: 4px 12px; border-radius: 12px; font-size: 11px; font-weight: bold; letter-spacing: 1px; }
+
+        .plan-name { font-size: 20px; font-weight: 700; margin: 0 0 15px 0; color: var(--accent-blue); }
+        .featured .plan-name { color: var(--accent-orange); }
+        
+        .price-box { margin-bottom: 25px; }
+        .price { font-size: 36px; font-weight: 800; margin: 0; }
+        .price-old { text-decoration: line-through; color: #777; font-size: 16px; margin-right: 8px; display: inline-block; }
+        
+        .feature-list { list-style: none; padding: 0; margin: 0 0 30px 0; flex-grow: 1; }
+        .feature-list li { margin-bottom: 12px; font-size: 14px; display: flex; align-items: flex-start; gap: 8px; color: #ddd; }
+        .feature-list li::before { content: "✓"; color: var(--accent-green); font-weight: bold; }
+
+        .btn-buy { background: var(--bg-input); color: #fff; border: 1px solid var(--border-color); padding: 12px; width: 100%; border-radius: 8px; font-size: 15px; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        .btn-buy:hover { background: #333; }
+        .featured .btn-buy { background: linear-gradient(180deg, var(--accent-orange) 0%, #d97d36 100%); border: none; }
+        .featured .btn-buy:hover { filter: brightness(1.1); }
+
+        /* CHECKOUT MODAL */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); display: none; justify-content: center; align-items: center; z-index: 100; }
+        .modal-box { background: var(--bg-card); width: 90%; max-width: 450px; border-radius: 16px; border: 1px solid var(--border-color); overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.6); }
+        .modal-header { padding: 15px 20px; background: #1a1a1a; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
+        .modal-header h3 { margin: 0; font-size: 16px; color: var(--text-primary); }
+        .close-btn { background: transparent; border: none; color: #888; font-size: 20px; cursor: pointer; }
+        .close-btn:hover { color: #fff; }
+        
+        .modal-body { padding: 20px; }
+        .step { display: none; }
+        .step.active { display: block; }
+        
+        .input-group { margin-bottom: 15px; text-align: left; }
+        .input-group label { display: block; font-size: 13px; margin-bottom: 6px; color: #ccc; }
+        .req { color: #ff3b30; }
+        .input-group input { width: 100%; background: var(--bg-input); border: 1px solid #333; color: #fff; padding: 12px; border-radius: 8px; font-size: 14px; outline: none; }
+        .input-group input:focus { border-color: var(--accent-blue); }
+
+        .payment-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+        .pay-method { background: var(--bg-input); border: 1px solid #333; padding: 12px; border-radius: 8px; cursor: pointer; text-align: center; font-size: 13px; font-weight: bold; transition: 0.2s; }
+        .pay-method:hover { border-color: #666; }
+        .pay-method.selected { border-color: var(--accent-green); background: rgba(39, 201, 63, 0.1); color: var(--accent-green); }
+
+        .info-box { background: rgba(10, 132, 255, 0.1); border: 1px solid rgba(10, 132, 255, 0.3); padding: 15px; border-radius: 8px; margin-bottom: 15px; font-size: 13px; line-height: 1.5; color: #ccc; }
+        
+        .modal-footer { display: flex; gap: 10px; margin-top: 20px; }
+        .btn-modal { padding: 12px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; flex: 1; transition: 0.2s; }
+        .btn-back { background: #333; color: #fff; }
+        .btn-next { background: var(--accent-blue); color: #fff; }
+        .btn-submit { background: var(--accent-green); color: #fff; }
+        
+        .success-icon { font-size: 50px; color: var(--accent-green); margin-bottom: 15px; }
+
+        @media(max-width: 600px) {
+            .header { flex-direction: column; gap: 15px; padding: 15px; }
+            .payment-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <div class="header">
+        <div class="logo-area">
+            <h2 class="logo-text">Icon Sheet Builder <span class="pro-badge">PRO</span></h2>
+        </div>
+        <div class="controls">
+            <button class="toggle-btn" id="btnLang" onclick="toggleLang()">🌐 English</button>
+            <button class="toggle-btn" id="btnCur" onclick="toggleCurrency()">💰 BDT (৳)</button>
+        </div>
+    </div>
+
+    <!-- PRICING SECTION -->
+    <div class="pricing-container">
+        <h1 class="section-title" id="tTitle">Choose Your Plan</h1>
+        <p class="section-sub" id="tSub">Unlock the ultimate power of high-speed icon sheet generation.</p>
+
+        <div class="pricing-grid">
+            <!-- 1 Month -->
+            <div class="price-card">
+                <h3 class="plan-name" id="p1Name">1 Month</h3>
+                <div class="price-box">
+                    <span class="price" id="p1Price">৳499</span>
+                </div>
+                <ul class="feature-list" id="p1Feat">
+                    <li>Full access & High speed</li>
+                    <li>All features unlocked</li>
+                    <li>Standard Support</li>
+                </ul>
+                <button class="btn-buy" id="b1Btn" onclick="openModal('1 Month')">Subscribe Now</button>
+            </div>
+
+            <!-- 6 Months -->
+            <div class="price-card">
+                <h3 class="plan-name" id="p2Name">6 Months</h3>
+                <div class="price-box">
+                    <span class="price" id="p2Price">৳1499</span>
+                </div>
+                <ul class="feature-list" id="p2Feat">
+                    <li>Full access & High speed</li>
+                    <li>All features unlocked</li>
+                    <li>3 Auto Updates included</li>
+                </ul>
+                <button class="btn-buy" id="b2Btn" onclick="openModal('6 Months')">Subscribe Now</button>
+            </div>
+
+            <!-- 1 Year -->
+            <div class="price-card featured">
+                <div class="featured-tag" id="tOffer">OFFER</div>
+                <h3 class="plan-name" id="p3Name">1 Year</h3>
+                <div class="price-box">
+                    <span class="price-old" id="p3Old">৳3500</span>
+                    <span class="price" id="p3Price">৳2999</span>
+                </div>
+                <ul class="feature-list" id="p3Feat">
+                    <li>Full access & High speed</li>
+                    <li>All features unlocked</li>
+                    <li>7 Auto Updates included</li>
+                    <li>Priority Support</li>
+                </ul>
+                <button class="btn-buy" id="b3Btn" onclick="openModal('1 Year')">Get Offer</button>
+            </div>
+
+            <!-- Lifetime -->
+            <div class="price-card">
+                <h3 class="plan-name" id="p4Name">Lifetime</h3>
+                <div class="price-box">
+                    <span class="price" id="p4Price">৳6999</span>
+                </div>
+                <ul class="feature-list" id="p4Feat">
+                    <li>Full access & High speed</li>
+                    <li>All features unlocked</li>
+                    <li>20 Auto Updates included</li>
+                    <li>24/7 VIP Support</li>
+                </ul>
+                <button class="btn-buy" id="b4Btn" onclick="openModal('Lifetime')">Buy Lifetime</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CHECKOUT MODAL -->
+    <div class="modal-overlay" id="checkoutModal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3 id="mTitle">Checkout</h3>
+                <button class="close-btn" onclick="closeModal()">×</button>
+            </div>
+            <div class="modal-body">
+                
+                <!-- STEP 1: User Info -->
+                <div class="step active" id="step1">
+                    <div class="input-group">
+                        <label id="lName">Full Name <span class="req">*</span></label>
+                        <input type="text" id="inName" placeholder="John Doe">
+                    </div>
+                    <div class="input-group">
+                        <label id="lEmail">Email Address <span class="req">*</span></label>
+                        <input type="email" id="inEmail" placeholder="john@example.com">
+                    </div>
+                    <div class="input-group">
+                        <label id="lWa">WhatsApp Number <span class="req">*</span></label>
+                        <input type="text" id="inWa" placeholder="+8801...">
+                    </div>
+                    <p id="err1" class="req" style="font-size:12px; display:none;"></p>
+                    <div class="modal-footer">
+                        <button class="btn-modal btn-next" id="bNext1" onclick="goStep(2)">Proceed to Payment</button>
+                    </div>
+                </div>
+
+                <!-- STEP 2: Payment Method -->
+                <div class="step" id="step2">
+                    <p style="margin-top:0; font-size:14px; color:#ccc;" id="tMethod">Select Payment Method:</p>
+                    <div class="payment-grid">
+                        <div class="pay-method" onclick="selectMethod(this, 'bKash')">bKash</div>
+                        <div class="pay-method" onclick="selectMethod(this, 'Nagad')">Nagad</div>
+                        <div class="pay-method" onclick="selectMethod(this, 'Upay')">Upay</div>
+                        <div class="pay-method" onclick="selectMethod(this, 'Rocket')">Rocket</div>
+                        <div class="pay-method" onclick="selectMethod(this, 'Binance')">Binance</div>
+                        <div class="pay-method" onclick="selectMethod(this, 'Card')">Debit / Credit Card</div>
+                    </div>
+                    <p id="err2" class="req" style="font-size:12px; display:none;"></p>
+                    <div class="modal-footer">
+                        <button class="btn-modal btn-back" id="bBack1" onclick="goStep(1)">Back</button>
+                        <button class="btn-modal btn-next" id="bNext2" onclick="goStep(3)">Continue</button>
+                    </div>
+                </div>
+
+                <!-- STEP 3: Payment Proof -->
+                <div class="step" id="step3">
+                    <div class="info-box" id="payInstructions">
+                        <!-- JS will fill this -->
+                    </div>
+                    <div class="input-group">
+                        <label id="lTrx">Transaction ID / Proof <span class="req">*</span></label>
+                        <input type="text" id="inTrx" placeholder="e.g. 9FX3H8... or Binance Pay ID">
+                    </div>
+                    <p id="err3" class="req" style="font-size:12px; display:none;"></p>
+                    <div class="modal-footer">
+                        <button class="btn-modal btn-back" id="bBack2" onclick="goStep(2)">Back</button>
+                        <button class="btn-modal btn-submit" id="bSubmit" onclick="submitOrder()">Verify Payment</button>
+                    </div>
+                </div>
+
+                <!-- STEP 4: Success -->
+                <div class="step" id="step4" style="text-align: center; padding: 20px 0;">
+                    <div class="success-icon">✔️</div>
+                    <h2 style="color:var(--accent-green); margin-bottom:10px;" id="sTitle">Order Received!</h2>
+                    <p style="color:#aaa; font-size:14px; line-height:1.6;" id="sDesc">
+                        We are reviewing your payment. Your Activation Key will be sent to your WhatsApp and Email within 10 minutes to 1 hour.
+                    </p>
+                    <button class="btn-modal btn-back" style="margin-top:20px; width:100%;" onclick="closeModal()">Close Window</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data Configuration
+        let isBn = false;
+        let isUSD = false;
+        let selectedPlan = "";
+        let selectedMethod = "";
+
+        const dict = {
+            en: {
+                btnLang: "🌐 English", btnCur: "💰 BDT (৳)",
+                tTitle: "Choose Your Plan", tSub: "Unlock the ultimate power of high-speed icon sheet generation.",
+                tOffer: "OFFER",
+                names: ["1 Month", "6 Months", "1 Year", "Lifetime"],
+                f1: "Full access & High speed", f2: "All features unlocked", f3: "Standard Support",
+                f4: "3 Auto Updates included", f5: "7 Auto Updates included", f6: "Priority Support",
+                f7: "20 Auto Updates included", f8: "24/7 VIP Support",
+                btnBuy1: "Subscribe Now", btnBuy2: "Get Offer", btnBuy3: "Buy Lifetime",
+                mTitle: "Checkout",
+                lName: "Full Name <span class='req'>*</span>", lEmail: "Email Address <span class='req'>*</span>", lWa: "WhatsApp Number <span class='req'>*</span>",
+                bNext1: "Proceed to Payment", tMethod: "Select Payment Method:", bBack: "Back", bNext2: "Continue",
+                lTrx: "Transaction ID / Proof <span class='req'>*</span>", bSubmit: "Verify Payment",
+                sTitle: "Order Received!", sDesc: "We are reviewing your payment. Your Activation Key will be sent to your WhatsApp and Email within 10 minutes to 1 hour.",
+                errReq: "Please fill all required fields!", errSel: "Please select a payment method!"
+            },
+            bn: {
+                btnLang: "🌐 বাংলা", btnCur: "💰 BDT (৳)",
+                tTitle: "আপনার প্ল্যান বেছে নিন", tSub: "হাই-স্পিড আইকন শিট তৈরির চূড়ান্ত ক্ষমতা আনলক করুন।",
+                tOffer: "অফার",
+                names: ["১ মাস", "৬ মাস", "১ বছর", "লাইফটাইম"],
+                f1: "ফুল এক্সেস ও হাই স্পিড", f2: "সব ফিচার আনলকড", f3: "স্ট্যান্ডার্ড সাপোর্ট",
+                f4: "৩টি অটো আপডেট ফ্রি", f5: "৭টি অটো আপডেট ফ্রি", f6: "প্রায়োরিটি সাপোর্ট",
+                f7: "২০টি অটো আপডেট ফ্রি", f8: "২৪/৭ ভিআইপি সাপোর্ট",
+                btnBuy1: "সাবস্ক্রাইব করুন", btnBuy2: "অফার নিন", btnBuy3: "লাইফটাইম কিনুন",
+                mTitle: "চেকআউট",
+                lName: "আপনার নাম <span class='req'>*</span>", lEmail: "ইমেইল এড্রেস <span class='req'>*</span>", lWa: "হোয়াটসঅ্যাপ নাম্বার <span class='req'>*</span>",
+                bNext1: "পেমেন্ট ধাপে যান", tMethod: "পেমেন্ট মাধ্যম সিলেক্ট করুন:", bBack: "পেছনে", bNext2: "সামনে যান",
+                lTrx: "ট্রানজেকশন আইডি / প্রুফ <span class='req'>*</span>", bSubmit: "পেমেন্ট ভেরিফাই করুন",
+                sTitle: "অর্ডার রিসিভ হয়েছে!", sDesc: "আমরা আপনার পেমেন্ট চেক করছি। ১০ মিনিট থেকে ১ ঘণ্টার মধ্যে আপনার হোয়াটসঅ্যাপ ও ইমেইলে অ্যাক্টিভেশন কী পাঠিয়ে দেওয়া হবে।",
+                errReq: "অনুগ্রহ করে সব তথ্য পূরণ করুন!", errSel: "একটি পেমেন্ট মাধ্যম সিলেক্ট করুন!"
+            }
+        };
+
+        const prices = {
+            bdt: { p1: "৳499", p2: "৳1499", p3O: "৳3500", p3P: "৳2999", p4: "৳6999" },
+            usd: { p1: "$4.99", p2: "$14.99", p3O: "$35.00", p3P: "$29.99", p4: "$69.99" }
+        };
+
+        function el(id) { return document.getElementById(id); }
+
+        function toggleLang() {
+            isBn = !isBn;
+            updateUI();
+        }
+
+        function toggleCurrency() {
+            isUSD = !isUSD;
+            el("btnCur").innerText = isUSD ? "💰 USD ($)" : "💰 BDT (৳)";
+            updateUI();
+        }
+
+        function updateUI() {
+            let l = isBn ? dict.bn : dict.en;
+            let p = isUSD ? prices.usd : prices.bdt;
+
+            el("btnLang").innerText = l.btnLang;
+            el("tTitle").innerText = l.tTitle; el("tSub").innerText = l.tSub; el("tOffer").innerText = l.tOffer;
+            
+            el("p1Name").innerText = l.names[0]; el("p2Name").innerText = l.names[1]; el("p3Name").innerText = l.names[2]; el("p4Name").innerText = l.names[3];
+            el("p1Price").innerText = p.p1; el("p2Price").innerText = p.p2; el("p3Old").innerText = p.p3O; el("p3Price").innerText = p.p3P; el("p4Price").innerText = p.p4;
+
+            el("p1Feat").innerHTML = `<li>${l.f1}</li><li>${l.f2}</li><li>${l.f3}</li>`;
+            el("p2Feat").innerHTML = `<li>${l.f1}</li><li>${l.f2}</li><li>${l.f4}</li>`;
+            el("p3Feat").innerHTML = `<li>${l.f1}</li><li>${l.f2}</li><li>${l.f5}</li><li>${l.f6}</li>`;
+            el("p4Feat").innerHTML = `<li>${l.f1}</li><li>${l.f2}</li><li>${l.f7}</li><li>${l.f8}</li>`;
+
+            el("b1Btn").innerText = l.btnBuy1; el("b2Btn").innerText = l.btnBuy1; el("b3Btn").innerText = l.btnBuy2; el("b4Btn").innerText = l.btnBuy3;
+
+            el("mTitle").innerText = l.mTitle;
+            el("lName").innerHTML = l.lName; el("lEmail").innerHTML = l.lEmail; el("lWa").innerHTML = l.lWa;
+            el("bNext1").innerText = l.bNext1; el("tMethod").innerText = l.tMethod;
+            el("bBack1").innerText = l.bBack; el("bBack2").innerText = l.bBack; el("bNext2").innerText = l.bNext2;
+            el("lTrx").innerHTML = l.lTrx; el("bSubmit").innerText = l.bSubmit;
+            el("sTitle").innerText = l.sTitle; el("sDesc").innerText = l.sDesc;
+        }
+
+        // Modal Logic
+        function openModal(plan) {
+            selectedPlan = plan;
+            selectedMethod = "";
+            document.querySelectorAll('.pay-method').forEach(m => m.classList.remove('selected'));
+            el("inName").value = ""; el("inEmail").value = ""; el("inWa").value = ""; el("inTrx").value = "";
+            el("err1").style.display = "none"; el("err2").style.display = "none"; el("err3").style.display = "none";
+            goStep(1);
+            el("checkoutModal").style.display = "flex";
+        }
+
+        function closeModal() { el("checkoutModal").style.display = "none"; }
+
+        function goStep(n) {
+            let l = isBn ? dict.bn : dict.en;
+            if (n === 2) {
+                if(!el("inName").value || !el("inEmail").value || !el("inWa").value) {
+                    el("err1").innerText = l.errReq; el("err1").style.display = "block"; return;
+                }
+                el("err1").style.display = "none";
+            }
+            if (n === 3) {
+                if(selectedMethod === "") {
+                    el("err2").innerText = l.errSel; el("err2").style.display = "block"; return;
+                }
+                el("err2").style.display = "none";
+                setupPaymentInfo();
+            }
+
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            el("step" + n).classList.add('active');
+        }
+
+        function selectMethod(elem, method) {
+            document.querySelectorAll('.pay-method').forEach(m => m.classList.remove('selected'));
+            elem.classList.add('selected');
+            selectedMethod = method;
+        }
+
+        function setupPaymentInfo() {
+            let pName = el(selectedPlan === '1 Month' ? 'p1Name' : selectedPlan === '6 Months' ? 'p2Name' : selectedPlan === '1 Year' ? 'p3Name' : 'p4Name').innerText;
+            let price = el(selectedPlan === '1 Month' ? 'p1Price' : selectedPlan === '6 Months' ? 'p2Price' : selectedPlan === '1 Year' ? 'p3Price' : 'p4Price').innerText;
+            
+            let html = `<b style="color:#fff;">Plan:</b> ${pName} (${price})<br><br>`;
+            
+            let info = "";
+            if(selectedMethod === "Card") info = "You will be redirected to the secure gateway after clicking Verify.";
+            else if(selectedMethod === "Binance") info = "<b>Binance Pay ID:</b> 123456789<br>Send exact amount and paste your Proof/TxID below.";
+            else if(selectedMethod === "Skrill") info = "<b>Skrill Email:</b> pay@shorifmeta.com<br>Send exact amount and paste TxID below.";
+            else info = `<b>${selectedMethod} Personal:</b> 01631737848<br>Send money and paste the Transaction ID below.`;
+
+            el("payInstructions").innerHTML = html + info;
+        }
+
+        function submitOrder() {
+            let l = isBn ? dict.bn : dict.en;
+            if(!el("inTrx").value && selectedMethod !== "Card") {
+                el("err3").innerText = l.errReq; el("err3").style.display = "block"; return;
+            }
+            el("err3").style.display = "none";
+            goStep(4);
+            
+            // Note: Here you can write code to send the collected data to your Firebase or Email system.
+        }
+    </script>
+</body>
+</html>
