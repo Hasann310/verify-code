@@ -32,11 +32,11 @@
         .toggle-btn:hover { border-color: var(--accent-orange); color: var(--accent-orange); }
 
         /* PRICING SECTION */
-        .pricing-container { padding: 50px 20px; text-align: center; max-width: 1200px; width: 100%; }
+        .pricing-container { padding: 50px 20px; text-align: center; max-width: 1400px; width: 100%; }
         .section-title { font-size: 32px; font-weight: 800; margin-bottom: 10px; }
         .section-sub { color: var(--text-secondary); margin-bottom: 40px; font-size: 16px; }
 
-        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
         .price-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 30px 20px; text-align: left; transition: transform 0.3s, box-shadow 0.3s; display: flex; flex-direction: column; }
         .price-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); border-color: var(--text-secondary); }
         .price-card.featured { border-color: var(--accent-orange); box-shadow: 0 0 20px rgba(255, 159, 10, 0.15); position: relative; }
@@ -120,7 +120,7 @@
             <div class="price-card">
                 <h3 class="plan-name" id="p1Name">1 Month</h3>
                 <div class="price-box">
-                    <span class="price" id="p1Price">৳499</span>
+                    <span class="price" id="p1Price">৳500</span>
                 </div>
                 <ul class="feature-list" id="p1Feat">
                     <li>Full access & High speed</li>
@@ -128,6 +128,20 @@
                     <li>Standard Support</li>
                 </ul>
                 <button class="btn-buy" id="b1Btn" onclick="openModal('1 Month')">Subscribe Now</button>
+            </div>
+
+            <!-- 3 Months -->
+            <div class="price-card">
+                <h3 class="plan-name" id="p3mName">3 Months</h3>
+                <div class="price-box">
+                    <span class="price" id="p3mPrice">৳1199</span>
+                </div>
+                <ul class="feature-list" id="p3mFeat">
+                    <li>Full access & High speed</li>
+                    <li>All features unlocked</li>
+                    <li>Standard Support</li>
+                </ul>
+                <button class="btn-buy" id="b3mBtn" onclick="openModal('3 Months')">Subscribe Now</button>
             </div>
 
             <!-- 6 Months -->
@@ -149,8 +163,8 @@
                 <div class="featured-tag" id="tOffer">OFFER</div>
                 <h3 class="plan-name" id="p3Name">1 Year</h3>
                 <div class="price-box">
-                    <span class="price-old" id="p3Old">৳3500</span>
-                    <span class="price" id="p3Price">৳2999</span>
+                    <span class="price-old" id="p3Old">৳2500</span>
+                    <span class="price" id="p3Price">৳1999</span>
                 </div>
                 <ul class="feature-list" id="p3Feat">
                     <li>Full access & High speed</li>
@@ -165,7 +179,7 @@
             <div class="price-card">
                 <h3 class="plan-name" id="p4Name">Lifetime</h3>
                 <div class="price-box">
-                    <span class="price" id="p4Price">৳6999</span>
+                    <span class="price" id="p4Price">৳3999</span>
                 </div>
                 <ul class="feature-list" id="p4Feat">
                     <li>Full access & High speed</li>
@@ -267,7 +281,7 @@
                 btnLang: "🌐 English", btnCur: "💰 BDT (৳)",
                 tTitle: "Choose Your Plan", tSub: "Unlock the ultimate power of high-speed icon sheet generation.",
                 tOffer: "OFFER",
-                names: ["1 Month", "6 Months", "1 Year", "Lifetime"],
+                names: ["1 Month", "3 Months", "6 Months", "1 Year", "Lifetime"],
                 f1: "Full access & High speed", f2: "All features unlocked", f3: "Standard Support",
                 f4: "3 Auto Updates included", f5: "7 Auto Updates included", f6: "Priority Support",
                 f7: "20 Auto Updates included", f8: "24/7 VIP Support",
@@ -277,13 +291,14 @@
                 bNext1: "Proceed to Payment", tMethod: "Select Payment Method:", bBack: "Back", bNext2: "Continue",
                 lTrx: "Transaction ID / Proof <span class='req'>*</span>", bSubmit: "Verify Payment",
                 sTitle: "Order Received!", sDesc: "We are reviewing your payment. Your Activation Key will be sent to your WhatsApp and Email within 10 minutes to 1 hour.",
-                errReq: "Please fill all required fields!", errSel: "Please select a payment method!"
+                errReq: "Please fill all required fields!", errSel: "Please select a payment method!",
+                waitTxt: "Please wait..."
             },
             bn: {
                 btnLang: "🌐 বাংলা", btnCur: "💰 BDT (৳)",
                 tTitle: "আপনার প্ল্যান বেছে নিন", tSub: "হাই-স্পিড আইকন শিট তৈরির চূড়ান্ত ক্ষমতা আনলক করুন।",
                 tOffer: "অফার",
-                names: ["১ মাস", "৬ মাস", "১ বছর", "লাইফটাইম"],
+                names: ["১ মাস", "৩ মাস", "৬ মাস", "১ বছর", "লাইফটাইম"],
                 f1: "ফুল এক্সেস ও হাই স্পিড", f2: "সব ফিচার আনলকড", f3: "স্ট্যান্ডার্ড সাপোর্ট",
                 f4: "৩টি অটো আপডেট ফ্রি", f5: "৭টি অটো আপডেট ফ্রি", f6: "প্রায়োরিটি সাপোর্ট",
                 f7: "২০টি অটো আপডেট ফ্রি", f8: "২৪/৭ ভিআইপি সাপোর্ট",
@@ -293,13 +308,14 @@
                 bNext1: "পেমেন্ট ধাপে যান", tMethod: "পেমেন্ট মাধ্যম সিলেক্ট করুন:", bBack: "পেছনে", bNext2: "সামনে যান",
                 lTrx: "ট্রানজেকশন আইডি / প্রুফ <span class='req'>*</span>", bSubmit: "পেমেন্ট ভেরিফাই করুন",
                 sTitle: "অর্ডার রিসিভ হয়েছে!", sDesc: "আমরা আপনার পেমেন্ট চেক করছি। ১০ মিনিট থেকে ১ ঘণ্টার মধ্যে আপনার হোয়াটসঅ্যাপ ও ইমেইলে অ্যাক্টিভেশন কী পাঠিয়ে দেওয়া হবে।",
-                errReq: "অনুগ্রহ করে সব তথ্য পূরণ করুন!", errSel: "একটি পেমেন্ট মাধ্যম সিলেক্ট করুন!"
+                errReq: "অনুগ্রহ করে সব তথ্য পূরণ করুন!", errSel: "একটি পেমেন্ট মাধ্যম সিলেক্ট করুন!",
+                waitTxt: "অপেক্ষা করুন..."
             }
         };
 
         const prices = {
-            bdt: { p1: "৳499", p2: "৳1499", p3O: "৳3500", p3P: "৳2999", p4: "৳6999" },
-            usd: { p1: "$4.99", p2: "$14.99", p3O: "$35.00", p3P: "$29.99", p4: "$69.99" }
+            bdt: { p1: "৳500", p3m: "৳1199", p2: "৳1499", p3O: "৳2500", p3P: "৳1999", p4: "৳3999" },
+            usd: { p1: "$5.00", p3m: "$11.99", p2: "$14.99", p3O: "$25.00", p3P: "$19.99", p4: "$39.99" }
         };
 
         function el(id) { return document.getElementById(id); }
@@ -322,15 +338,16 @@
             el("btnLang").innerText = l.btnLang;
             el("tTitle").innerText = l.tTitle; el("tSub").innerText = l.tSub; el("tOffer").innerText = l.tOffer;
             
-            el("p1Name").innerText = l.names[0]; el("p2Name").innerText = l.names[1]; el("p3Name").innerText = l.names[2]; el("p4Name").innerText = l.names[3];
-            el("p1Price").innerText = p.p1; el("p2Price").innerText = p.p2; el("p3Old").innerText = p.p3O; el("p3Price").innerText = p.p3P; el("p4Price").innerText = p.p4;
+            el("p1Name").innerText = l.names[0]; el("p3mName").innerText = l.names[1]; el("p2Name").innerText = l.names[2]; el("p3Name").innerText = l.names[3]; el("p4Name").innerText = l.names[4];
+            el("p1Price").innerText = p.p1; el("p3mPrice").innerText = p.p3m; el("p2Price").innerText = p.p2; el("p3Old").innerText = p.p3O; el("p3Price").innerText = p.p3P; el("p4Price").innerText = p.p4;
 
             el("p1Feat").innerHTML = `<li>${l.f1}</li><li>${l.f2}</li><li>${l.f3}</li>`;
+            el("p3mFeat").innerHTML = `<li>${l.f1}</li><li>${l.f2}</li><li>${l.f3}</li>`;
             el("p2Feat").innerHTML = `<li>${l.f1}</li><li>${l.f2}</li><li>${l.f4}</li>`;
             el("p3Feat").innerHTML = `<li>${l.f1}</li><li>${l.f2}</li><li>${l.f5}</li><li>${l.f6}</li>`;
             el("p4Feat").innerHTML = `<li>${l.f1}</li><li>${l.f2}</li><li>${l.f7}</li><li>${l.f8}</li>`;
 
-            el("b1Btn").innerText = l.btnBuy1; el("b2Btn").innerText = l.btnBuy1; el("b3Btn").innerText = l.btnBuy2; el("b4Btn").innerText = l.btnBuy3;
+            el("b1Btn").innerText = l.btnBuy1; el("b3mBtn").innerText = l.btnBuy1; el("b2Btn").innerText = l.btnBuy1; el("b3Btn").innerText = l.btnBuy2; el("b4Btn").innerText = l.btnBuy3;
 
             el("mTitle").innerText = l.mTitle;
             el("lName").innerHTML = l.lName; el("lEmail").innerHTML = l.lEmail; el("lWa").innerHTML = l.lWa;
@@ -380,14 +397,14 @@
         }
 
         function setupPaymentInfo() {
-            let pName = el(selectedPlan === '1 Month' ? 'p1Name' : selectedPlan === '6 Months' ? 'p2Name' : selectedPlan === '1 Year' ? 'p3Name' : 'p4Name').innerText;
-            let price = el(selectedPlan === '1 Month' ? 'p1Price' : selectedPlan === '6 Months' ? 'p2Price' : selectedPlan === '1 Year' ? 'p3Price' : 'p4Price').innerText;
+            let pName = el(selectedPlan === '1 Month' ? 'p1Name' : selectedPlan === '3 Months' ? 'p3mName' : selectedPlan === '6 Months' ? 'p2Name' : selectedPlan === '1 Year' ? 'p3Name' : 'p4Name').innerText;
+            let price = el(selectedPlan === '1 Month' ? 'p1Price' : selectedPlan === '3 Months' ? 'p3mPrice' : selectedPlan === '6 Months' ? 'p2Price' : selectedPlan === '1 Year' ? 'p3Price' : 'p4Price').innerText;
             
             let html = `<b style="color:#fff;">Plan:</b> ${pName} (${price})<br><br>`;
             
             let info = "";
             if(selectedMethod === "Card") info = "You will be redirected to the secure gateway after clicking Verify.";
-            else if(selectedMethod === "Binance") info = "<b>Binance Pay ID:</b> 1268010078<br>Send exact amount and paste your Proof/TxID below.";
+            else if(selectedMethod === "Binance") info = "<b>Binance Pay ID:</b> 123456789<br>Send exact amount and paste your Proof/TxID below.";
             else if(selectedMethod === "Skrill") info = "<b>Skrill Email:</b> pay@shorifmeta.com<br>Send exact amount and paste TxID below.";
             else info = `<b>${selectedMethod} Personal:</b> 01631737848<br>Send money and paste the Transaction ID below.`;
 
@@ -400,9 +417,45 @@
                 el("err3").innerText = l.errReq; el("err3").style.display = "block"; return;
             }
             el("err3").style.display = "none";
-            goStep(4);
             
-            // Note: Here you can write code to send the collected data to your Firebase or Email system.
+            // Button Loader
+            let btn = el("bSubmit");
+            let oldText = btn.innerText;
+            btn.innerText = l.waitTxt;
+            btn.disabled = true;
+
+            // Gather Data
+            let pName = el(selectedPlan === '1 Month' ? 'p1Name' : selectedPlan === '3 Months' ? 'p3mName' : selectedPlan === '6 Months' ? 'p2Name' : selectedPlan === '1 Year' ? 'p3Name' : 'p4Name').innerText;
+            let price = el(selectedPlan === '1 Month' ? 'p1Price' : selectedPlan === '3 Months' ? 'p3mPrice' : selectedPlan === '6 Months' ? 'p2Price' : selectedPlan === '1 Year' ? 'p3Price' : 'p4Price').innerText;
+
+            let orderData = {
+                name: el("inName").value,
+                email: el("inEmail").value,
+                whatsapp: el("inWa").value,
+                plan: pName,
+                price: price,
+                method: selectedMethod,
+                trxId: el("inTrx").value
+            };
+
+            // Send to Google Sheet
+            fetch("https://script.google.com/macros/s/AKfycbxd3xpWO19SWlflMpHOo8SQ8U-kP9OZQLPdz40gbxtgoBjY7g0ZH_aeUaIQlNQfReQX/exec", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "text/plain;charset=utf-8"
+                },
+                body: JSON.stringify(orderData)
+            })
+            .then(response => {
+                btn.innerText = oldText;
+                btn.disabled = false;
+                goStep(4);
+            })
+            .catch(error => {
+                btn.innerText = oldText;
+                btn.disabled = false;
+                goStep(4);
+            });
         }
     </script>
 </body>
