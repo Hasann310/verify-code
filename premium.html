@@ -450,6 +450,14 @@
                 btn.innerText = oldText;
                 btn.disabled = false;
                 goStep(4);
+                
+                // WhatsApp-e Message Pathano
+                let adminPhone = "8801631737848"; // Ekhane apnar WhatsApp Number deya ache
+                let waMessage = `*New Order Received!* 🛍️\n\n*Name:* ${orderData.name}\n*Email:* ${orderData.email}\n*WhatsApp:* ${orderData.whatsapp}\n*Plan:* ${orderData.plan}\n*Amount:* ${orderData.price}\n*Method:* ${orderData.method}\n*TrxID:* ${orderData.trxId}\n\nPlease verify my payment and send the Activation Key.`;
+                let waUrl = `https://wa.me/${adminPhone}?text=${encodeURIComponent(waMessage)}`;
+                
+                // Nuton tab e WhatsApp open korbe
+                window.open(waUrl, "_blank");
             })
             .catch(error => {
                 btn.innerText = oldText;
